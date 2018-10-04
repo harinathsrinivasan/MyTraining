@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
+	       xmlns:context="http://www.springframework.org/schema/context"
+	       xmlns:jee="http://www.springframework.org/schema/jee"
+	       xmlns:mvc="http://www.springframework.org/schema/mvc"
+	       xmlns:security="http://www.springframework.org/schema/security" 
+	       xmlns:tx="http://www.springframework.org/schema/tx"
+	       xmlns:aop="http://www.springframework.org/schema/aop"
+
+	       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd      
+	       					   http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+	       					   http://www.springframework.org/schema/jee  http://www.springframework.org/schema/jee/spring-jee-4.0.xsd  
+	       					   http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+	       					   http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+	       					   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	       					   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"> 
+	       					   
+	       					        
+    	<context:component-scan base-package="com.htc.tvshows" />    
+    	<context:annotation-config />
+        <mvc:annotation-driven /> 
+        <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.htc.service.ShowManagerImpl.change*(..))"/>
+	    </aop:config>
+    	 
+    	
+    	<tx:advice id="transactionAdvice">
+		<tx:attributes>
+		<tx:method name="changeanchor" isolation="READ_COMMITTED" read-only="false" propagation="REQUIRES_NEW" timeout="100" rollback-for="java.lang.Exception"/>
+		</tx:attributes>
+		</tx:advice>
+
+	       	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">        
+    	     <property name="driverClassName" value="org.postgresql.Driver"/>        
+    	     <property name="url" value="jdbc:postgresql://localhost:5432/postgres"/>        
+    	     <property name="username" value="postgres"/>        
+    	     <property name="password" value="123Welcome"/>
+   	    </bean>
+   	    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">        
+    	    <property name="prefix" value="/WEB-INF/views/" />        
+    	    <property name="suffix" value=".jsp" />   
+   	    </bean>
+</beans>
