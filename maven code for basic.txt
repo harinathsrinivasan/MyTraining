@@ -1,0 +1,11 @@
+For creating project
+mvn archetype:generate
+
+GroupId:
+	package
+Artificate ID
+	Project
+
+Command to connect maven  to eclipse	
+
+mvn eclipse:eclipse
