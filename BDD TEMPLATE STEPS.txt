@@ -1,0 +1,10 @@
+Template
+
+In order to Business requirement /goal
+As a Role
+I want to Do this
+
+
+Given :pre-requesite
+when:PEforms Action
+Then THe desired OUtcome validation
